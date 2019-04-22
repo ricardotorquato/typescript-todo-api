@@ -10,3 +10,10 @@ Sorry about that and I hope we learn something with those usage examples
 
 The gitignore of this project was created with the [gitignore npm library](https://www.npmjs.com/package/gitignore).
 It's silly but can be handy.
+
+# editorconfig
+
+[EditorConfig](https://editorconfig.org/) helps maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs.
+It's another silly thing that can be handy in your project.
+
+I'm using Visual Studio Code so I needed the [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) extension.
