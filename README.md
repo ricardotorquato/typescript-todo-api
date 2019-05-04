@@ -6,6 +6,13 @@ This project aims to demonstrate the usage of some tecnologies/libraries such as
 As this developer here was not in a creative mood, he decided to do the most commom example: A To-Do Api...
 Sorry about that and I hope we learn something with those usage examples
 
+## Typescript
+
+This project is developed on typescript. The follow versions were tested and are therefore recommended to run the project:
+
+- `npm`: >= `6.9.0`
+- `node`: >= `10.12.0`
+
 ## gitignore
 
 The gitignore of this project was created with the [gitignore npm library](https://www.npmjs.com/package/gitignore).
@@ -34,3 +41,13 @@ DB_NAME=todo
 The command `npm run migrate` will run the migrations on your database.
 
 The command `npm run migrate:make -- {migration_name}` will create a new migration file on `./database/migrations`
+
+## Building and running
+
+First you need to install the packages: `npm install`
+
+- `npm run build` will allow you to build the project, it will transpile the files from typescript from `src` folder to javascript on `dist` folder;
+
+- `npm start` will allow you to execute the project. It will build and then run;
+
+- `npm run start:dev` will allow you to run the project over nodemon;
