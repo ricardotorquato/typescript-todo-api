@@ -17,3 +17,19 @@ It's silly but can be handy.
 It's another silly thing that can be handy in your project.
 
 I'm using Visual Studio Code so I needed the [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) extension.
+
+## Database migrations
+
+To run the database migrations, first you need to have on your `.env` file the following structure:
+
+```
+DB_CLIENT=mysql
+DB_HOST=0.0.0.0
+DB_PORT=3306
+DB_USER=root
+DB_PASS=root
+DB_NAME=todo
+```
+
+The command `npm run migrate` will run the migrations on your database.
+The command `npm run migrate:make -- {migration_name}` will create a new migration file on `./database/migrations`

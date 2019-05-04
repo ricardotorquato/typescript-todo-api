@@ -4,9 +4,18 @@
   "description": "To-do api",
   "main": "index.js",
   "scripts": {
+    "migrate": "knex --knexfile ./database/knexfile.js migrate:latest",
+    "migrate:make": "knex --knexfile ./database/knexfile.js migrate:make",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^0.16.5",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.0.0"
+  }
 }
