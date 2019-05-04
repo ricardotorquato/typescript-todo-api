@@ -32,4 +32,5 @@ DB_NAME=todo
 ```
 
 The command `npm run migrate` will run the migrations on your database.
+
 The command `npm run migrate:make -- {migration_name}` will create a new migration file on `./database/migrations`
