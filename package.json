@@ -4,6 +4,7 @@
   "description": "To-do api",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "migrate": "knex --knexfile ./database/knexfile.js migrate:latest",
     "migrate:make": "knex --knexfile ./database/knexfile.js migrate:make",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,10 +13,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@overnightjs/core": "^1.4.8",
+    "express": "^4.16.4",
     "knex": "^0.16.5",
     "mysql": "^2.17.1"
   },
   "devDependencies": {
-    "dotenv": "^8.0.0"
+    "@types/express": "^4.16.1",
+    "dotenv": "^8.0.0",
+    "typescript": "^3.4.5"
   }
 }
