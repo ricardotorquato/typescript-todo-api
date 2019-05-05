@@ -7,6 +7,12 @@ export function getUser(): any {
             req.userId = parseInt(req.headers.user, 10);
         }
 
+        if (!req.userId) {
+            return res.status(400).json({
+                message: 'Missing `user` on header'
+            });
+        }
+
         return next();
     };
 }
