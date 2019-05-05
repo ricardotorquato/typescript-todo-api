@@ -1,7 +1,7 @@
 import * as bodyParser from 'body-parser';
 import { Server } from '@overnightjs/core';
 
-import { StatusController } from './controllers';
+import { StatusController, TasksController } from './controllers';
 
 export class TodoServer extends Server {
     private port: number = 3000;
@@ -21,8 +21,9 @@ export class TodoServer extends Server {
 
     private controllersSetup() {
         const statusController: StatusController = new StatusController();
+        const tasksController: TasksController = new TasksController();
 
-        this.addControllers([ statusController ]);
+        this.addControllers([ statusController, tasksController ]);
     }
 
     public start(): void {
