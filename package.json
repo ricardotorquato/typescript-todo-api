@@ -10,6 +10,7 @@
     "run:dev": "ts-node src/index.ts",
     "migrate": "knex --knexfile ./database/knexfile.js migrate:latest",
     "migrate:make": "knex --knexfile ./database/knexfile.js migrate:make",
+    "populate": "knex --knexfile ./database/knexfile.js seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,6 +21,7 @@
     "@overnightjs/core": "^1.4.8",
     "bookshelf": "^0.14.2",
     "express": "^4.16.4",
+    "joi": "^14.3.1",
     "knex": "^0.16.5",
     "mysql": "^2.17.1"
   },

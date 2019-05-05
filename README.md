@@ -25,7 +25,7 @@ It's another silly thing that can be handy in your project.
 
 I'm using Visual Studio Code so I needed the [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) extension.
 
-## Database migrations
+## Database migrations & seeds
 
 To run the database migrations, first you need to have on your `.env` file the following structure:
 
@@ -41,6 +41,8 @@ DB_NAME=todo
 The command `npm run migrate` will run the migrations on your database.
 
 The command `npm run migrate:make -- {migration_name}` will create a new migration file on `./database/migrations`
+
+The command `npm run populate` will create the default user.
 
 ## Building and running
 
