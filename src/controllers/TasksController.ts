@@ -1,8 +1,7 @@
-import { Collection } from 'bookshelf';
 import { Response } from 'express';
 import { Controller, Delete, Get, Put, Post, Middleware } from '@overnightjs/core';
 
-import { ICustomRequest } from '../interfaces';
+import { ICustomRequest, ITask } from '../interfaces';
 import { getUser, validateBody } from '../middlewares';
 import { TasksModel } from '../models';
 import { tasksSchema } from '../schemas'
@@ -14,11 +13,7 @@ export class TasksController {
     @Middleware([ getUser() ])
     async getAll(req: ICustomRequest, res: Response): Promise<Response> {
         const userId: number = req.userId || 0;
-
-        const items: TasksModel[] = await new TasksModel()
-            .where('user_id', userId)
-            .fetchAll({ withRelated: ['user'] })
-            .then((tasksCollection: Collection<TasksModel>) => tasksCollection.toArray());
+        const items: ITask[] = await new TasksModel().findAllByUserId(userId);
 
         return res.status(200).json({ data: items });
     }
@@ -28,25 +23,22 @@ export class TasksController {
     async get(req: ICustomRequest, res: Response): Promise<Response> {
         const userId: number = req.userId || 0;
 
-        const item: TasksModel = await new TasksModel()
-            .where('id', req.params.id)
-            .where('user_id', userId)
-            .fetch({ withRelated: ['user'] });
+        const item: ITask = await new TasksModel().findOneByIdAndUserId(req.params.id, userId, ['user']);
 
         if (!item) {
             return res.status(404).json();
         }
 
-        return res.status(200).json(item.serialize());
+        return res.status(200).json(item);
     }
 
     @Post('')
     @Middleware([ getUser(), validateBody(tasksSchema.create) ])
     async create(req: ICustomRequest, res: Response): Promise<Response> {
         const userId: number = req.userId || 0;
-        const task: TasksModel = await new TasksModel({ ...req.body, userId }).save();
+        const task: ITask = await new TasksModel().store({ ...req.body, userId });
 
-        return res.status(501).json(task.serialize());
+        return res.status(201).json(task);
     }
 
     @Put(':id')
@@ -54,24 +46,13 @@ export class TasksController {
     async update(req: ICustomRequest, res: Response): Promise<Response> {
         const userId: number = req.userId || 0;
 
-        const item: TasksModel = await new TasksModel()
-            .where('id', req.params.id)
-            .where('user_id', userId)
-            .fetch();
+        const idUpdated: number = await new TasksModel()
+            .updateByIdAndUserId(req.params.id, userId, req.body);
 
-        if (!item) {
+        if (!idUpdated) {
             return res.status(404).json();
         }
 
-        if (req.body.description) {
-            item.set('description', req.body.description);
-        }
-
-        if (req.body.dueAt) {
-            item.set('due_at', req.body.dueAt);
-        }
-
-        await item.save();
         return res.status(204).json();
     }
 
@@ -80,16 +61,12 @@ export class TasksController {
     async delete(req: ICustomRequest, res: Response): Promise<Response> {
         const userId: number = req.userId || 0;
 
-        const item: TasksModel = await new TasksModel()
-            .where('id', req.params.id)
-            .where('user_id', userId)
-            .fetch();
+        const deletedId: number = await new TasksModel().deleteByIdAndUserId(req.params.id, userId);
 
-        if (!item) {
+        if (!deletedId) {
             return res.status(404).json();
         }
 
-        await item.destroy();
         return res.status(204).json();
     }
 
@@ -98,18 +75,11 @@ export class TasksController {
     async markDone(req: ICustomRequest, res: Response): Promise<Response> {
         const userId: number = req.userId || 0;
 
-        const item: TasksModel = await new TasksModel()
-            .where('id', req.params.id)
-            .where('user_id', userId)
-            .fetch();
+        const updatedId: number = await new TasksModel().markDoneByIdAndUserId(req.params.id, userId);
 
-        if (!item) {
+        if (!updatedId) {
             return res.status(404).json();
         }
-
-        item.set('is_done', 1);
-        item.set('done_at', new Date());
-        await item.save();
 
         return res.status(204).json();
     }
