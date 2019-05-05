@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hapi/joi": "^15.0.1",
     "@overnightjs/core": "^1.4.8",
     "bookshelf": "^0.14.2",
     "express": "^4.16.4",
@@ -26,6 +27,7 @@
     "@types/bookshelf": "^0.13.1",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^4.16.1",
+    "@types/joi": "^14.3.3",
     "@types/knex": "^0.16.1",
     "dotenv": "^8.0.0",
     "nodemon": "^1.19.0",
